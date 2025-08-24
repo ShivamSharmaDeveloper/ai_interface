@@ -1,0 +1,133 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  --card-background: #ffffff;
+  --card-foreground: #171717;
+  --border-color: #e5e7eb;
+  --input-background: #ffffff;
+  --input-foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+    --card-background: #1f2937;
+    --card-foreground: #f9fafb;
+    --border-color: #374151;
+    --input-background: #1f2937;
+    --input-foreground: #f9fafb;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Apply theme variables to Tailwind components */
+.bg-white.dark\:bg-gray-800 {
+  background-color: var(--card-background) !important;
+  color: var(--card-foreground) !important;
+  border-color: var(--border-color) !important;
+}
+
+.border-gray-200.dark\:border-gray-700 {
+  border-color: var(--border-color) !important;
+}
+
+.text-gray-700.dark\:text-gray-300 {
+  color: var(--card-foreground) !important;
+}
+
+.text-gray-500.dark\:text-gray-400 {
+  color: var(--card-foreground) !important;
+  opacity: 0.8;
+}
+
+/* Fix button styling in light mode */
+button.border-gray-300.text-gray-700 {
+  border-color: var(--border-color) !important;
+  color: var(--card-foreground) !important;
+}
+
+/* Disable hover effects */
+.hover\:bg-gray-50:hover,
+.hover\:bg-gray-300:hover,
+.hover\:bg-blue-700:hover {
+  background-color: transparent !important;
+}
+
+/* Fix input and textarea styling */
+input, textarea {
+  background-color: var(--input-background) !important;
+  color: var(--input-foreground) !important;
+  border-color: var(--border-color) !important;
+}
+
+.light {
+  --background: #ffffff;
+  --foreground: #171717;
+  --card-background: #ffffff;
+  --card-foreground: #171717;
+  --border-color: #e5e7eb;
+  --input-background: #ffffff;
+  --input-foreground: #171717;
+}
+
+.dark {
+  --background: #0a0a0a;
+  --foreground: #ededed;
+  --card-background: #1f2937;
+  --card-foreground: #f9fafb;
+  --border-color: #374151;
+  --input-background: #1f2937;
+  --input-foreground: #f9fafb;
+}
+
+/* Slider thumb styles */
+.slider-thumb::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #3b82f6;
+  cursor: pointer;
+  border: 2px solid var(--background);
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+  position: relative;
+  z-index: 100;
+}
+
+.slider-thumb::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #3b82f6;
+  cursor: pointer;
+  border: 2px solid var(--background);
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+  position: relative;
+  z-index: 100;
+}
+
+.slider-thumb:disabled::-webkit-slider-thumb {
+  background: #9ca3af;
+  cursor: not-allowed;
+}
+
+.slider-thumb:disabled::-moz-range-thumb {
+  background: #9ca3af;
+  cursor: not-allowed;
+}
