@@ -22,17 +22,12 @@ const PromptEditor = ({ defaultValue = '', onChange, className = '' }: PromptEdi
   const [newTemplateDescription, setNewTemplateDescription] = useState('');
 
   useEffect(() => {
-    const fetchTemplates = async () => {
+    const loadTemplates = async () => {
       try {
         setLoading(true);
-        const response = await fetch('/api/templates');
-        
-        if (!response.ok) {
-          throw new Error('Failed to fetch templates');
-        }
-        
-        const data = await response.json();
-        setTemplates(data);
+        // Import templates directly instead of fetching from API
+        const { templates } = await import('../../data/templates');
+        setTemplates(templates);
       } catch (err) {
         setError(err instanceof Error ? err.message : 'An error occurred');
       } finally {
@@ -40,7 +35,7 @@ const PromptEditor = ({ defaultValue = '', onChange, className = '' }: PromptEdi
       }
     };
 
-    fetchTemplates();
+    loadTemplates();
   }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {

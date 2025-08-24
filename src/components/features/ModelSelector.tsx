@@ -17,25 +17,22 @@ const ModelSelector = ({ onSelect, selectedModelId, className = '' }: ModelSelec
   const [selectedModel, setSelectedModel] = useState<AIModel | null>(null);
 
   useEffect(() => {
-    const fetchModels = async () => {
+    // Import models directly instead of fetching from API
+    const loadModels = async () => {
       try {
         setLoading(true);
-        const response = await fetch('/api/models');
+        // Import models directly
+        const { models } = await import('../../data/models');
         
-        if (!response.ok) {
-          throw new Error('Failed to fetch models');
-        }
-        
-        const data = await response.json();
-        setModels(data);
+        setModels(models);
         
         // Set initial selected model
         if (selectedModelId) {
-          const model = data.find((m: AIModel) => m.id === selectedModelId);
+          const model = models.find((m: AIModel) => m.id === selectedModelId);
           if (model) setSelectedModel(model);
-        } else if (data.length > 0) {
-          setSelectedModel(data[0]);
-          onSelect(data[0]);
+        } else if (models.length > 0) {
+          setSelectedModel(models[0]);
+          onSelect(models[0]);
         }
       } catch (err) {
         setError(err instanceof Error ? err.message : 'An error occurred');
@@ -44,7 +41,7 @@ const ModelSelector = ({ onSelect, selectedModelId, className = '' }: ModelSelec
       }
     };
 
-    fetchModels();
+    loadModels();
   }, [selectedModelId, onSelect]);
 
   const handleSelect = (model: AIModel) => {
