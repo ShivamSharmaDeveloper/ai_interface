@@ -23,7 +23,7 @@ const meta: Meta<typeof Modal> = {
 export default meta;
 
 // We need to use a wrapper component for interactive stories
-const ModalDemo = (args: any) => {
+const ModalDemo = (args: React.ComponentProps<typeof Modal>) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <>

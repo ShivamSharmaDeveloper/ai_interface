@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useTheme } from '../contexts/ThemeContext';
 import ModelSelector from '../components/features/ModelSelector';
 import PromptEditor from '../components/features/PromptEditor';
