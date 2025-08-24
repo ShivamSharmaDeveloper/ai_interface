@@ -7,12 +7,13 @@ import { PromptTemplate } from '../../types';
 
 export interface PromptEditorProps {
   defaultValue?: string;
+  value?: string;
   onChange?: (value: string) => void;
   className?: string;
 }
 
-const PromptEditor = ({ defaultValue = '', onChange, className = '' }: PromptEditorProps) => {
-  const [value, setValue] = useState(defaultValue);
+const PromptEditor = ({ defaultValue = '', value, onChange, className = '' }: PromptEditorProps) => {
+  const [internalValue, setValue] = useState(value || defaultValue);
   const [templates, setTemplates] = useState<PromptTemplate[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -44,6 +45,13 @@ const PromptEditor = ({ defaultValue = '', onChange, className = '' }: PromptEdi
     onChange?.(newValue);
   };
 
+  // Update internal value when value prop changes
+  useEffect(() => {
+    if (value !== undefined) {
+      setValue(value);
+    }
+  }, [value]);
+
   const handleTemplateSelect = (template: PromptTemplate) => {
     setValue(template.content);
     onChange?.(template.content);
@@ -55,7 +63,7 @@ const PromptEditor = ({ defaultValue = '', onChange, className = '' }: PromptEdi
     const newTemplate: PromptTemplate = {
       id: `temp-${Date.now()}`,
       name: newTemplateName,
-      content: value,
+      content: internalValue,
       description: newTemplateDescription,
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
@@ -86,7 +94,7 @@ const PromptEditor = ({ defaultValue = '', onChange, className = '' }: PromptEdi
             variant="outline"
             size="sm"
             onClick={() => setIsSaveModalOpen(true)}
-            disabled={!value.trim()}
+            disabled={!internalValue.trim()}
           >
             Save Template
           </Button>
@@ -96,7 +104,7 @@ const PromptEditor = ({ defaultValue = '', onChange, className = '' }: PromptEdi
       <textarea
         id="prompt-editor"
         className="w-full h-64 p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-600 dark:text-white resize-none font-mono"
-        value={value}
+        value={internalValue}
         onChange={handleChange}
         placeholder="Enter your prompt here..."
         aria-label="Prompt editor"
