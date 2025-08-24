@@ -20,9 +20,7 @@ const mockModel: AIModel = {
   provider: 'OpenAI',
   description: 'Most powerful model for complex tasks',
   maxTokens: 8192,
-  defaultTemperature: 0.7,
-  createdAt: new Date().toISOString(),
-  updatedAt: new Date().toISOString(),
+  defaultTemperature: 0.7
 };
 
 export const Default: Story = {
